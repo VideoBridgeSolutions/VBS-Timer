@@ -29,6 +29,10 @@ Il pilote une **sortie timer plein écran** pendant que l'opérateur prépare la
     
 *   Sorties LIVE : **NOIR / HORLOGE / TIMER**, avec fondus
     
+*   **Signaux LIVE** pour l'orateur : chiffres en **ROUGE**, **FLASH**, **MESSAGE** sous le timer
+    
+*   **Presets Message** : afficher un texte à l'antenne sans toucher au timer en cours
+    
 *   Seuils d'alerte orange / rouge et comportement de fin configurable
     
 *   Personnalisation visuelle complète (polices, couleurs, barres, habillages, animations), globale ou par preset
@@ -41,7 +45,7 @@ Il pilote une **sortie timer plein écran** pendant que l'opérateur prépare la
     
 *   Fichiers de show portables (`.vbstimer`)
     
-*   Interface en français / anglais
+*   Interface en français / anglais, **aide intégrée** (F1)
     
 
 **Objectif :** un timer fiable à l'antenne — rapide à mettre en place, impossible à modifier par erreur.
@@ -50,11 +54,13 @@ Il pilote une **sortie timer plein écran** pendant que l'opérateur prépare la
 
 ## Statut
 
-VBS Timer 2.0 est actuellement publié en version **alpha**.
+VBS Timer 2.0 est publié en **version officielle** (plus de version alpha).
 
-*   Validez-le sur vos propres machines (écrans, NDI, Stream Deck) avant de l'utiliser en production
+*   Numérotation `2.0.<build>` : la version est affichée dans la barre de titre, le numéro et la date de build dans **À propos** (icône **i**)
     
-*   Signalez tout problème dans **Issues** en indiquant le numéro de version exact
+*   Comme pour tout outil d'antenne, validez-le sur vos propres machines (écrans, NDI, Stream Deck) avant un show
+    
+*   Signalez tout problème dans **Issues** en joignant les infos copiées depuis **À propos → Copier les infos**
     
 
 * * *
@@ -65,7 +71,7 @@ VBS Timer 2.0 est actuellement publié en version **alpha**.
 
 *   Windows 10 ou Windows 11 (x64)
     
-*   macOS (Apple Silicon ou Intel)
+*   macOS sur Apple Silicon (M1 et suivants) — pas de build Intel publiée
     
 *   Aucun droit administrateur requis (installation par utilisateur sous Windows)
     
@@ -87,22 +93,24 @@ VBS Timer 2.0 est actuellement publié en version **alpha**.
 
 ### Windows
 
-1.  Téléchargez la dernière version `VBS_Timer_<version>_Windows_x64_Setup.exe` dans la section **Releases**
+1.  Téléchargez la dernière version `VBS_Timer_<version>_Windows_x64_Setup_<horodatage>.exe` dans la section **Releases**
     
-2.  Lancez l'installateur et suivez l'assistant
+2.  Fermez VBS Timer s'il est ouvert, lancez l'installateur et suivez l'assistant (français ou anglais selon la langue de Windows)
     
-3.  VBS Timer est ajouté au menu Démarrer et au bureau
+3.  VBS Timer est ajouté au menu Démarrer (Video Bridge Solutions) et au bureau ; la dernière page propose de le lancer directement
+    
+4.  Une mise à jour s'installe par-dessus la version précédente : projets et réglages sont conservés
     
 
 L'installateur n'est pas encore signé : Windows SmartScreen peut demander une confirmation (**Informations complémentaires → Exécuter quand même**).
 
 ### Installation silencieuse (optionnel)
 
-`VBS_Timer_<version>_Windows_x64_Setup.exe /S`
+`VBS_Timer_<version>_Windows_x64_Setup_<horodatage>.exe /S`
 
 ### macOS
 
-1.  Téléchargez la dernière version `VBS_Timer_<version>_macOS_<arch>.dmg` (`arm64` pour Apple Silicon, `x64` pour Intel)
+1.  Téléchargez la dernière version `VBS_Timer_<version>_macOS_arm64_<horodatage>.dmg` (Apple Silicon)
     
 2.  Ouvrez l'image et glissez **VBS Timer** dans **Applications**
     
@@ -159,6 +167,8 @@ La fenêtre est organisée en quatre zones :
 
 La barre des paramètres est en haut : un clic sur un onglet l'ouvre, un nouveau clic le replie.
 
+Dans la barre de titre, à gauche de la roue dentée : **?** ouvre l'**Aide** (aussi **F1**) et **i** la fenêtre **À propos**. Sur macOS, les deux sont aussi dans le menu **Aide**.
+
 Les poignées entre les trois colonnes se déplacent à la souris pour redimensionner les panneaux. Un double-clic sur une poignée rétablit les largeurs par défaut.
 
 * * *
@@ -175,12 +185,14 @@ Les poignées entre les trois colonnes se déplacent à la souris pour redimensi
     
 *   **Dupliquer** : crée une copie
     
+*   Pastilles à droite du nom : **● LIVE** (rouge, timer démarré à l'antenne), **● PRÊT** (bleu, preset chargé non démarré), **● AFFICHÉ** (preset Message à l'antenne)
+    
 
 ### Réglages du preset
 
 Sélectionnez un preset, puis **✎ Modifier ce preset** dans le panneau de droite :
 
-*   Nom et mode (Compte à rebours, Chrono, Horloge, Jusqu'à une heure)
+*   Nom et mode (Compte à rebours, Chrono, Horloge, Jusqu'à une heure, Message)
     
 *   Durée ou heure de fin
     
@@ -198,6 +210,19 @@ Sélectionnez un preset, puis **✎ Modifier ce preset** dans le panneau de droi
     
 
 Les modifications sont validées avec **Enregistrer** ou abandonnées avec **Annuler**.
+
+### Presets Message
+
+Mode **Message (zone message LIVE)** : le preset ne contient qu'un nom et un texte (120 caractères maximum).
+
+*   **Afficher** place le texte dans la zone message du LIVE ; **Retirer** (ou un second appui) l'enlève
+    
+*   Le timer à l'antenne, la sortie NOIR / HORLOGE / TIMER et la préparation ne changent pas : timer et message s'utilisent en même temps
+    
+*   Afficher un autre preset Message remplace le précédent
+    
+*   Les presets Message sont enregistrés dans le projet `.vbstimer` avec les autres presets
+    
 
 * * *
 
@@ -225,6 +250,23 @@ Les modifications sont validées avec **Enregistrer** ou abandonnées avec **Ann
 *   **NOIR** : passe au noir ; un second appui revient à ce qui était diffusé avant (TIMER ou HORLOGE)
     
 *   **HORLOGE / TIMER** : choisit ce qu'affiche la sortie. Le timer continue de tourner quand il est masqué
+    
+
+### Signaux LIVE (orateur)
+
+Bloc **SIGNAL LIVE**, à gauche des ajustements. Les signaux ne s'appliquent qu'au LIVE (sortie écran, NDI, retour LIVE), jamais à la préparation, et ne modifient jamais le décompte.
+
+*   **ROUGE** (bascule) : chiffres dans la couleur critique du style
+    
+*   **FLASH** (bascule) : chiffres clignotants
+    
+*   **MESSAGE** : sans message à l'antenne, ouvre le panneau (texte libre, Entrée pour afficher, ou messages enregistrés) ; avec un message à l'antenne, un clic l'efface
+    
+*   ROUGE et FLASH se désactivent automatiquement quand un nouveau timer part au LIVE ; le message reste jusqu'à ce qu'on l'efface
+    
+*   Le message s'affiche sous le timer, **jamais sur l'horloge** : il réapparaît quand la sortie revient sur TIMER
+    
+*   Un message tapé rejoint les **messages enregistrés** (20 au maximum, propres au poste) ; **×** le retire de la liste
     
 
 * * *
@@ -333,6 +375,10 @@ Paramètres → **Stream Deck** :
     
 *   L'état est affiché sur les touches : en cours, chargé, masqué, NOIR / HORLOGE / TIMER
     
+*   Actions **Signal ROUGE**, **Signal FLASH**, **Message LIVE** (le libellé de la touche est le message, second appui = effacer) et **Effacer le message LIVE**
+    
+*   Une touche liée à un preset Message affiche ou retire son message sans toucher au timer
+    
 
 ### Plugin Elgato (optionnel)
 
@@ -340,7 +386,7 @@ Paramètres → Stream Deck → **Elgato ▸ Installer / Mettre à jour**, puis 
 
 ### Bitfocus Companion
 
-Un module Companion (expérimental) est disponible, avec actions, presets et feedbacks.
+Un module Companion (expérimental) est disponible, avec actions, presets et feedbacks, signaux ROUGE / FLASH / MESSAGE compris.
 
 * * *
 
@@ -362,7 +408,10 @@ Paramètres → **Sortie OSC** :
 `/vbs/timer/transport <start|paused|stopped|reset>`  
 `/vbs/timer/remaining <secondes>`  
 `/vbs/timer/phase <warning|critical>`  
-`/vbs/timer/ended <id> <sortie>`
+`/vbs/timer/ended <id> <sortie>`  
+`/vbs/timer/operator/red <0|1>`  
+`/vbs/timer/operator/flash <0|1>`  
+`/vbs/timer/operator/message "<texte>"`
 
 Chaque preset peut aussi envoyer sa propre adresse au départ au LIVE et à zéro.
 
@@ -390,6 +439,23 @@ Exemple :
 
 Actions principales : `start`, `pause`, `toggle`, `stop`, `reset`, `add` (`seconds`), `black`, `toggle-black`, `clock`, `timer`, `toggle-timer-clock`, `select` / `arm-timer` / `preset` (`presetId`), `take`, `take-start`.
 
+Signaux LIVE : `live-red`, `live-flash` (`value` : `on` / `off`, sinon bascule), `live-message` (`value` = texte, vide = effacer), `live-message-toggle`, `live-message-clear`, `live-cues-clear`, `message-preset` (`presetId`). `/v1/state` expose `ForceRed`, `Flash` et `OperatorMessage` ; `/v1/presets` expose `Kind` (`Timer` ou `Message`).
+
+`black` reste un noir forcé (compatibilité VBS Timeline) ; `toggle-black` est la bascule du bouton NOIR.
+
+* * *
+
+## Aide intégrée et raccourcis
+
+*   **F1** ou **?** : fenêtre d'aide (dix rubriques, flèches ↑ / ↓ pour changer de rubrique, Échap pour fermer)
+    
+*   **Ctrl/Cmd+N** nouveau projet · **Ctrl/Cmd+O** ouvrir · **Ctrl/Cmd+S** enregistrer · **Ctrl/Cmd+Maj+S** enregistrer sous
+    
+*   Personnalisation : flèches = 1 px, **Maj**+flèches = 10 px
+    
+*   Panneau MESSAGE : **Entrée** affiche le message saisi, **Échap** ferme le panneau
+    
+
 * * *
 
 ## Bonnes pratiques d'exploitation
@@ -399,6 +465,8 @@ Actions principales : `start`, `pause`, `toggle`, `stop`, `reset`, `add` (`secon
 *   Utilisez **Charger** pour armer l'orateur suivant, puis **DÉMARRER** au top
     
 *   Laissez la sortie sur HORLOGE ou NOIR entre deux sessions
+    
+*   Préparez les messages de l'orateur (« Encore 5 min », « Merci de conclure »…) en presets Message ou en touches Stream Deck
     
 *   Enregistrez le show en projet `.vbstimer` et gardez-en une copie sur la machine de secours
     
@@ -445,6 +513,8 @@ Actions principales : `start`, `pause`, `toggle`, `stop`, `reset`, `add` (`secon
     
 *   Le chemin du journal est aussi affiché dans les messages d'erreur au démarrage
     
+*   Une fois l'application lancée : **À propos → Ouvrir les logs** ouvre directement le dossier des journaux
+    
 
 * * *
 
@@ -456,7 +526,7 @@ Actions principales : `start`, `pause`, `toggle`, `stop`, `reset`, `add` (`secon
     
 *   Pour une demande de support, fournissez :
     
-    *   la version exacte (affichée dans la barre de titre)
+    *   les infos de **À propos → Copier les infos** (version, build, système, chemins, API)
         
     *   une capture de la fenêtre principale
         
